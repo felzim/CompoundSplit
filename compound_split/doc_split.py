@@ -5,6 +5,7 @@
 import logging
 import re
 import sys
+import pkgutil
 
 from compound_split import doc_config
 
@@ -89,10 +90,10 @@ def load_known_words(de_dict=doc_config.DEFAULT_DICT):
         return   # already loaded
     if de_dict is None:
         de_dict = doc_config.DEFAULT_DICT
-    with open(de_dict) as file:
-        for word in file:
-            if not (word == '' or word.startswith('#')):
-                KNOWN_WORDS.add(word.strip())
+    data = pkgutil.get_data(__name__, de_dict).decode('utf-8')
+    for word in data:
+        if not (word == '' or word.startswith('#')):
+            KNOWN_WORDS.add(word.strip())
     # print('%d known words loaded\n' % (len(KNOWN_WORDS)), file=sys.stderr)
     logger.info('%d known words loaded', len(KNOWN_WORDS))
 
