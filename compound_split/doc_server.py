@@ -28,29 +28,31 @@ def tabular(tab_map):
         result.append(orig + '\t' + split)
     return '\n'.join(result) + '\n'
 
+
 def run(client_socket, client_address, dict):
     """Reads, splits, writes."""
     input_bytes = bytearray(b'')
     blockno = 0
     while True:
         block = client_socket.recv(2048)
-        #logger.info("Read block %d", blockno)
+        # logger.info("Read block %d", blockno)
         blockno += 1
         if not block:
             break
         input_bytes += block
-    #logger.info("Read %d bytes", len(input_bytes))
+    # logger.info("Read %d bytes", len(input_bytes))
     input_str = input_bytes.decode()
     result_map.clear()
     output_str = doc_split.doc_split(input_str, dict, result_map)
     if dict_mode:
         output_str = tabular(result_map)
     output_bytes = output_str.encode()
-    #logger.info("Split the text")
+    # logger.info("Split the text")
     client_socket.sendall(output_bytes)
-    #logger.info("Written %d bytes", len(output_bytes))
+    # logger.info("Written %d bytes", len(output_bytes))
     client_socket.shutdown(socket.SHUT_WR)
-    #logger.info("Client at %s disconnecting", client_address)
+    # logger.info("Client at %s disconnecting", client_address)
+
 
 def main():
     """Main server program.
@@ -91,6 +93,7 @@ def main():
             # trap all errors so the server doesn't die
             logger.exception("Error in doc_server main loop:");
             server.close()
+
 
 if __name__ == "__main__":
     main()

@@ -9,6 +9,8 @@ import sys
 
 from compound_split import de_ngram_probs  # trained with char_split_train.py
 from compound_split import nl_ngram_probs  # trained with char_split_train.py
+
+
 # import other ngram_probs files only as needed to save memory
 
 
@@ -51,7 +53,7 @@ def split_compound(word: str, lang: str = 'de'):
         start_slice_prob = prefix.get(ngram, -1)
 
         # Extract all ngrams
-        for k in range(len(word), n+2, -1):
+        for k in range(len(word), n + 2, -1):
             # Probability of ngram in word, if high, split unlikely
             in_ngram = word[n:k]
             in_slice_prob.append(infix.get(in_ngram, 1))  # Favor ngrams not occurring within words

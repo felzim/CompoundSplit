@@ -37,7 +37,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         data = client.recv(2048)
         if not data:
             break
-        #print("read block %d" % (blockno, file=sys.stderr))
+        # print("read block %d" % (blockno, file=sys.stderr))
         blockno += 1
         output_bytes += data
     print("finished reading", file=sys.stderr)

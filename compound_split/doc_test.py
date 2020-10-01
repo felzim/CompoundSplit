@@ -27,12 +27,12 @@ RESULT_SENTENCE = \
     """
 
 RESULT_DICTIONARY = \
-"""Mobilfunk\tMobil·funk
-Navigationssatelliten\tNavigations·satelliten
-"""
+    """Mobilfunk\tMobil·funk
+    Navigationssatelliten\tNavigations·satelliten
+    """
 
-PPORT = 30302   # Don't use production port
-DPORT = 30303   # Don't use production port
+PPORT = 30302  # Don't use production port
+DPORT = 30303  # Don't use production port
 
 
 class TestDeDecompound(unittest.TestCase):
@@ -62,12 +62,11 @@ class TestDeDecompound(unittest.TestCase):
                          'unbestimmte')
 
     def test_doc_split(self):
-
         self.assertEqual(doc_split(TEST_SENTENCE), RESULT_SENTENCE)
 
     def test_doc_server_plaintext(self):
         # Start server
-        pid = subprocess.Popen([sys.executable,    # this Python
+        pid = subprocess.Popen([sys.executable,  # this Python
                                 '-m',
                                 'doc_server',
                                 '-p',
@@ -76,15 +75,15 @@ class TestDeDecompound(unittest.TestCase):
         # Modified version of doc_client
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
             client.connect(('localhost', PPORT))
-            #print("connected to server", file=sys.stderr)
+            # print("connected to server", file=sys.stderr)
             input_bytes = TEST_SENTENCE.encode()
             client.sendall(input_bytes)
-            #print("input sent", file=sys.stderr)
+            # print("input sent", file=sys.stderr)
             client.shutdown(socket.SHUT_WR)
-            #print("shut down write side", file=sys.stderr)
-            data = client.recv(2048)   # one block is enough
+            # print("shut down write side", file=sys.stderr)
+            data = client.recv(2048)  # one block is enough
             output_str = data.decode()
-            #print("finished reading", file=sys.stderr)
+            # print("finished reading", file=sys.stderr)
 
             # Compare
             self.assertEqual(output_str, RESULT_SENTENCE)
@@ -94,7 +93,7 @@ class TestDeDecompound(unittest.TestCase):
 
     def test_doc_server_dict(self):
         # Start server
-        pid = subprocess.Popen([sys.executable,    # this Python
+        pid = subprocess.Popen([sys.executable,  # this Python
                                 '-m',
                                 'doc_server',
                                 '-d',
@@ -103,21 +102,22 @@ class TestDeDecompound(unittest.TestCase):
         # Modified version of doc_client
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
             client.connect(('localhost', DPORT))
-            #print("connected to server", file=sys.stderr)
+            # print("connected to server", file=sys.stderr)
             input_bytes = TEST_SENTENCE.encode()
             client.sendall(input_bytes)
-            #print("input sent", file=sys.stderr)
+            # print("input sent", file=sys.stderr)
             client.shutdown(socket.SHUT_WR)
-            #print("shut down write side", file=sys.stderr)
-            data = client.recv(2048)   # one block is enough
+            # print("shut down write side", file=sys.stderr)
+            data = client.recv(2048)  # one block is enough
             output_str = data.decode()
-            #print("finished reading", file=sys.stderr)
+            # print("finished reading", file=sys.stderr)
 
             # Compare
             self.assertEqual(output_str, RESULT_DICTIONARY)
 
             # Kill server
             pid.kill()
+
 
 if __name__ == "__main__":
     unittest.main()

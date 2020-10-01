@@ -8,13 +8,11 @@ import sys
 import pkgutil
 
 from compound_split import doc_config
-
 from compound_split import char_split
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
 
 DE_LETTER = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ' +
              'abcdefghijklmnopqrstuvwxyz' +
@@ -26,6 +24,7 @@ MIDDLE_DOT = '\N{MIDDLE DOT}'
 # Caches
 KNOWN_WORDS = set()
 ALREADY_SPLIT_WORDS = {}
+
 
 def find_root(word):
     """Looks in KNOWN_WORDS; if that fails, peels off German compound glue.
@@ -46,6 +45,7 @@ def find_root(word):
                 return word
     return None
 
+
 def get_best_split(word):
     """First look up the word, and if found, return it.
        Then get the best available split of a word into 2 words.
@@ -61,6 +61,7 @@ def get_best_split(word):
     if candidate[1] == candidate[2]:
         return [candidate[1]]
     return [candidate[1], candidate[2]]
+
 
 def maximal_split(word, de_dict=doc_config.DEFAULT_DICT):
     """Recursively split a single word into a list of words.
@@ -84,10 +85,11 @@ def maximal_split(word, de_dict=doc_config.DEFAULT_DICT):
     # Recursively split the non-head and prepend it to the head
     return maximal_split(word_list[0]) + [word_list[1]]
 
+
 def load_known_words(de_dict=doc_config.DEFAULT_DICT):
     """Load the dictionary into KNOWN_WORDS."""
     if KNOWN_WORDS:
-        return   # already loaded
+        return  # already loaded
     if de_dict is None:
         de_dict = doc_config.DEFAULT_DICT
     data = pkgutil.get_data(__name__, de_dict).decode('utf-8')
@@ -96,6 +98,7 @@ def load_known_words(de_dict=doc_config.DEFAULT_DICT):
             KNOWN_WORDS.add(word.strip())
     # print('%d known words loaded\n' % (len(KNOWN_WORDS)), file=sys.stderr)
     logger.info('%d known words loaded', len(KNOWN_WORDS))
+
 
 def maximal_split_str(word, de_dict=None):
     """Maximally split a word and return it with middle dots."""
@@ -148,6 +151,7 @@ def doc_split(doc, de_dict=None, result_map=None):
         result.append(doc[end:next_start])
     return ''.join(result)
 
+
 def main():
     """Read whole document from stdin, output in maximally split format.
        Usage: ./doc_split.py dict
@@ -159,6 +163,7 @@ def main():
     input_str = sys.stdin.read()
     output_str = doc_split(input_str, de_dict)
     sys.stdout.write(output_str)
+
 
 if __name__ == "__main__":
     main()
