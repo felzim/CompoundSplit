@@ -9,7 +9,7 @@
 import socket
 import sys
 
-import doc_config
+from compound_split import doc_config
 
 if len(sys.argv) > 2:
     host = sys.argv[2]

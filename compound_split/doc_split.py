@@ -6,9 +6,9 @@ import logging
 import re
 import sys
 
-import doc_config
+from compound_split import doc_config
 
-import char_split
+from compound_split import char_split
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

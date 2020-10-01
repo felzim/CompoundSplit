@@ -7,8 +7,8 @@ __author__ = 'don.tuggener@gmail.com'
 
 import sys
 
-import de_ngram_probs  # trained with char_split_train.py
-# import nl_ngram_probs  # trained with char_split_train.py
+from compound_split import de_ngram_probs  # trained with char_split_train.py
+from compound_split import nl_ngram_probs  # trained with char_split_train.py
 # import other ngram_probs files only as needed to save memory
 
 

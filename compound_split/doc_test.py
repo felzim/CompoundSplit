@@ -5,8 +5,8 @@ import subprocess
 import time
 import unittest
 
-from doc_split import *
-from char_split import *
+from compound_split.doc_split import *
+from compound_split.char_split import *
 
 TEST_WORD = 'Autobahnraststätte'
 RESULT_WORD1 = 'Autobahn'

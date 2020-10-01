@@ -7,8 +7,8 @@ import socket
 import sys
 import resource
 
-import doc_config
-import doc_split
+from compound_split import doc_config
+from compound_split import doc_split
 
 result_map = {}
 dict_mode = False
