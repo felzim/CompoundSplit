@@ -163,3 +163,13 @@ and begin with the correct language code (`de` for German).
 
 If the program is not splitting hard enough for your purposes,
 you may want to find and use a smaller dictionary.
+
+Since it is only checked if the exact word is in these dictionaries
+the following problem can arise:
+"Beschwerden" is not split because the dictionaries only contain "Beschwerde"!
+A solution to this problem would be to do this compound splitting only 
+on the lemmatized text with dictionaries containing lemmatized words.
+=> TODO: implement this OR make it possible to run it on a list of tokens!
+
+TODO: Make package smaller by only including de-mixed.dic, de-misc.dic and nl-NL.dic
+TODO: Write more documentation

@@ -86,18 +86,24 @@ def maximal_split(word, de_dict=doc_config.DEFAULT_DICT):
     return maximal_split(word_list[0]) + [word_list[1]]
 
 
-def load_known_words(de_dict=doc_config.DEFAULT_DICT):
+def load_known_words(de_dict=doc_config.DEFAULT_DICT, de_misc=True):
     """Load the dictionary into KNOWN_WORDS."""
     if KNOWN_WORDS:
         return  # already loaded
     if de_dict is None:
         de_dict = doc_config.DEFAULT_DICT
+    load_dict(de_dict)
+    if de_misc:
+        load_dict(doc_config.DE_MISC_DICT)
+    # print('%d known words loaded\n' % (len(KNOWN_WORDS)), file=sys.stderr)
+    logger.info('%d known words loaded', len(KNOWN_WORDS))
+
+
+def load_dict(de_dict):
     data = pkgutil.get_data(__name__, de_dict).decode('utf-8')
     for word in data:
         if not (word == '' or word.startswith('#')):
             KNOWN_WORDS.add(word.strip())
-    # print('%d known words loaded\n' % (len(KNOWN_WORDS)), file=sys.stderr)
-    logger.info('%d known words loaded', len(KNOWN_WORDS))
 
 
 def maximal_split_str(word, de_dict=None):
@@ -121,7 +127,18 @@ def maximal_split_str(word, de_dict=None):
     return result
 
 
-def doc_split(doc, de_dict=None, result_map=None):
+def add_additional_known_words(additional_known_words):
+    """Add additional known words added by the user"""
+    if additional_known_words is not None:
+        if not isinstance(additional_known_words, list):
+            raise ValueError(
+                f"additional_knwon_words should be of type list and not of type {type(additional_known_words)}")
+        for word in additional_known_words:
+            if not word == '':
+                KNOWN_WORDS.add(word)
+
+
+def doc_split(doc, de_dict=None, result_map=None, additional_known_words=None):
     """Split a whole document (a string) using the specified dictionary.
        Return the whole document with splitting dots.
     """
@@ -129,6 +146,7 @@ def doc_split(doc, de_dict=None, result_map=None):
         return ''
     # This is an entry point, so load the dictionary just in case.
     load_known_words(de_dict)
+    add_additional_known_words(additional_known_words)
     result = []
     if result_map is not None:
         result_map.clear()
@@ -149,7 +167,7 @@ def doc_split(doc, de_dict=None, result_map=None):
         else:
             next_start = windexes[i + 1][0]
         result.append(doc[end:next_start])
-    return ''.join(result)
+    return ''.join(result)  # TODO also return all splitted words for easy checking
 
 
 def main():

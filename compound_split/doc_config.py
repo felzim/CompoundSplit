@@ -7,3 +7,4 @@
 DEFAULT_HOST = "localhost"
 DEFAULT_PORT = 60604
 DEFAULT_DICT = 'dicts/de-mixed.dic'
+DE_MISC_DICT = 'dicts/de-misc.dic'
