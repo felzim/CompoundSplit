@@ -40,7 +40,7 @@ $ python char_split.py Autobahnraststätte
 As a module:
 ```
 $ python
->>> import char_split
+>>> from compound_split import char_split
 >>> char_split.split_compound('Autobahnraststätte')
 [[0.7945872450631273, 'Autobahn', 'Raststätte'],
  [-0.7143290887876655, 'Auto', 'Bahnraststätte'],  
@@ -89,7 +89,7 @@ sinnlose Bürokratie wie Laden·schluß·gesetz und Nacht·back·verbot auszutri
 As a module:
 ```
 $ python
->>> import doc_split
+>>> from compound_split import doc_split
 >>> # Constant containing a middle dot
 >>> doc_split.MIDDLE_DOT
 '·'

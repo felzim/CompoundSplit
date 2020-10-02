@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='compound_split',
-    version='0.1.0.dev5',
+    version='1.0.0',
     install_requires=[],
     python_requires='>=3',
     author="Don Tuggener",
