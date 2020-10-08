@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='compound_split',
-    version='1.0.1',
+    version='1.0.2',
     install_requires=[],
     python_requires='>=3',
     author="Don Tuggener",
@@ -13,7 +13,7 @@ setuptools.setup(
     license='GPL-3.0 License',
     long_description=open('README.md', "r").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/JoelNiklaus/CharSplit",
+    url="https://github.com/JoelNiklaus/CompoundSplit",
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[

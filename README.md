@@ -171,5 +171,4 @@ A solution to this problem would be to do this compound splitting only
 on the lemmatized text with dictionaries containing lemmatized words.
 => TODO: implement this OR make it possible to run it on a list of tokens!
 
-TODO: Make package smaller by only including de-mixed.dic, de-misc.dic and nl-NL.dic
 TODO: Write more documentation
