@@ -68,7 +68,7 @@ end_ngrams = {k: v / all_ngrams[k] for k, v in end_ngrams.items() if v > 1}
 in_ngrams = {k: v / all_ngrams[k] for k, v in in_ngrams.items() if v > 1}
 
 # Write dicts to python file
-with open(sys.argv[2] + '_ngram_probs.py', 'w') as f:
+with open(sys.argv[2] + '_ngram_probs.py', 'w', encoding='utf-8') as f:
     f.write('prefix=')
     f.write(str(dict(start_ngrams)))
     f.write('\n')
